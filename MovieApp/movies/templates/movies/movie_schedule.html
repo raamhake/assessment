@@ -1,0 +1,18 @@
+<h1>Movie Schedule</h1>
+
+{% for date, movies in schedule_by_date.items %}
+    <h2>{{ date }}</h2>
+    <ul>
+        {% for movie in movies %}
+            <li>
+                <h3>{{ movie.title }}</h3>
+                <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
+                <p>Genre(s): {{ movie.genre }}</p>
+                <p>Rating: {{ movie.rating }}</p>
+                <p>Year Release: {{ movie.year_release }}</p>
+                <p>Metacritic Rating: {{ movie.metacritic_rating }}</p>
+                <p>Runtime: {{ movie.runtime }} mins</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}

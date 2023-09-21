@@ -1,0 +1,49 @@
+<!-- movies/templates/movies/movie_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Movies@Mariana Tek</title>
+</head>
+<body>
+    <h1>The Movies@Mariana Tek</h1>
+
+    <!-- Filter Form -->
+    <form method="get" action="{% url 'movie_list' %}">
+        <div>
+            <label for="genre">Filter by Genre:</label>
+            <select name="genre" id="genre" multiple>
+                <option value="">All Genres</option>
+                {% for genre in all_genres %}
+                    <option value="{{ genre }}" {% if genre in selected_genres %}selected{% endif %}>
+                        {{ genre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="title">Search by Title:</label>
+            <input type="text" name="title" id="title" value="{{ search_query }}">
+            <button type="submit">Apply Filters</button>
+        </div>
+    </form>
+
+    <!-- Movie List -->
+    <ul>
+        {% for movie in movies %}
+            <li>
+                <h2>{{ movie.title }} ({{ movie.year_release }})</h2>
+                <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
+                <p>Genre(s): {{ movie.genre }}</p>
+                <p>Rating: {{ movie.rating }}</p>
+                <p>Metacritic Rating: {{ movie.metacritic_rating }}</p>
+                <p>Runtime: {{ movie.runtime }} mins</p>
+            </li>
+        {% empty %}
+            <li>No movies found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
